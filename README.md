@@ -90,9 +90,16 @@ The app reads its database settings from environment variables, which are set in
 
 The password in this repo is a dummy value for local learning only. Never commit real passwords.
 
-## Screenshot
+## Screenshots
 
-![App running](screenshots/app-running.png)
+**Containers running**
+![docker compose ps](screenshots/containers.png)
+
+**API response**
+![notes API](screenshots/api-notes.png)
+
+**Data in phpMyAdmin**
+![phpMyAdmin](screenshots/phpmyadmin.png)
 
 ## What I Learned
 
