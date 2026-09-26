@@ -101,6 +101,15 @@ The password in this repo is a dummy value for local learning only. Never commit
 **Data in phpMyAdmin**
 ![phpMyAdmin](screenshots/phpmyadmin.png)
 
+## CI/CD Pipeline
+
+Every push to `main` automatically:
+1. Builds the Docker image
+2. Pushes it to Docker Hub
+3. SSHes into an EC2 instance and redeploys the container
+
+Secrets (Docker Hub token, EC2 SSH key) are managed via GitHub Actions Secrets, never hardcoded.
+
 ## What I Learned
 
 - Writing a `Dockerfile` for a Node.js app
@@ -109,12 +118,12 @@ The password in this repo is a dummy value for local learning only. Never commit
 - Port mapping and container networking
 - Configuring an app with environment variables instead of hardcoding values
 - Keeping database data in a Docker volume
+- Writing GitHub Actions workflows for CI/CD
+- Managing secrets securely in a pipeline
+- Deploying to a remote server via SSH
 
-## Next Steps
-
-- Move passwords into a `.env` file
-- Add a `.dockerignore` file to keep the image small
-- Set up CI/CD with GitHub Actions
+## Known Limitation
+Currently the deployed EC2 container runs standalone rather than via Docker Compose, so app-to-database networking on the server needs fixing — works locally with Compose, deploy step is next to align.
 
 ## Author
 
