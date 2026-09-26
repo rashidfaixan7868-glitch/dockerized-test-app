@@ -18,3 +18,14 @@ jobs:
         run: |
          docker tag notes-api ${{secrets.DOCKERHUB_USERNAME}}/notes-api
          docker push ${{secrets.DOCKERHUB_USERNAME}}/notes-api
+      - name: deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            docker pull ${{ secrets.DOCKERHUB_USERNAME}}/notes-api
+            docker stop notes-api || true
+            docker rm notes-api || true
+            docker run -d --name notes-api -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME}}/notes-api
